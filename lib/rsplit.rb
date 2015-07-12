@@ -1,5 +1,5 @@
 require "rsplit/version"
 
-module Rsplit
+module RSplit
   # Your code goes here...
 end

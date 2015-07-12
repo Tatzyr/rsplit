@@ -5,7 +5,7 @@ require 'rsplit/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rsplit"
-  spec.version       = Rsplit::VERSION
+  spec.version       = RSplit::VERSION
   spec.authors       = ["OTSUKA Tatsuya"]
   spec.email         = ["tatzyr@gmail.com"]
 
