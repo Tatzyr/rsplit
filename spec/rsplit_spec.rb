@@ -30,6 +30,11 @@ describe RSplit do
         it "splits on multibyte characters" do
           expect("ありがりがとう".rsplit("が")).to eq(["あり", "り", "とう"])
         end
+
+        it "throws a TypeError if limit can't be converted to an integer" do
+          expect { "1.2.3.4".rsplit(".", "three") }.to raise_error(TypeError)
+          expect { "1.2.3.4".rsplit(".", nil) }.to raise_error(TypeError)
+        end
       end
 
       it "returns an array of substrings based on splitting on the given string" do
@@ -167,6 +172,29 @@ describe RSplit do
             end
           end
         end
+      end
+
+      it "doesn't taints the resulting strings if the Regexp is tainted" do
+        ["", "x:y:z:", "  x  y  "].each do |str|
+          ["", ":", " "].each do |pat|
+            [-1, 0, 1, 2].each do |limit|
+              str.rsplit(pat.dup.taint, limit).each do |x|
+                expect(x.tainted?).to eq(false)
+              end
+            end
+          end
+        end
+      end
+
+      it "retains the encoding of the source string" do
+        ary = "а б в".rsplit
+        encodings = ary.map { |s| s.encoding }
+        expect(encodings).to eq([Encoding::UTF_8, Encoding::UTF_8, Encoding::UTF_8])
+      end
+
+      it "splits a string on each character for a multibyte encoding and empty split" do
+        expect("That's why eﬃciency could not be helped".rsplit("").size).to eq(39)
+        expect("俺の想いよルイズへ届け！！ハルケギニアのルイズへ届け！".rsplit("").size).to eq(27)
       end
     end
   end
