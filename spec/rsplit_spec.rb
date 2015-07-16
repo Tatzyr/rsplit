@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RSplit do
   it 'has a version number' do
-    expect(RSplit::VERSION).not_to be nil
+    expect(RSplit::VERSION).not_to be_nil
   end
 
   describe String do
@@ -45,9 +45,9 @@ describe RSplit do
         expect("1,2,,3,4,,".rsplit(',')).to eq(["1", "2", "", "3", "4", "", ""])
         expect("1,2,,3,4,,".rsplit(',', 0)).to eq(["1", "2", "", "3", "4", "", ""])
         expect("  a  b  c\nd  ".rsplit("  ")).to eq(["a", "b", "c\nd", ""])
-        expect("hai".rsplit("hai")).to eq([])
-        expect(",".rsplit(",")).to eq([])
-        expect(",".rsplit(",", 0)).to eq([])
+        expect("hai".rsplit("hai")).to be_empty
+        expect(",".rsplit(",")).to be_empty
+        expect(",".rsplit(",", 0)).to be_empty
       end
 
       it "returns an array with one entry if limit is 1: the original string" do
@@ -130,7 +130,7 @@ describe RSplit do
       it "doesn't set $~" do
         $~ = nil
         "x.y.z".rsplit(".")
-        expect($~).to eq(nil)
+        expect($~).to be_nil
       end
 
       it "returns the original string if no matches are found" do
@@ -163,11 +163,11 @@ describe RSplit do
           ["", ".", " "].each do |pat|
             [-1, 0, 1, 2].each do |limit|
               str.dup.taint.rsplit(pat).each do |x|
-                expect(x.tainted?).to eq(true)
+                expect(x).to be_tainted
               end
 
               str.rsplit(pat.dup.taint).each do |x|
-                expect(x.tainted?).to eq(false)
+                expect(x).not_to be_tainted
               end
             end
           end
@@ -179,7 +179,7 @@ describe RSplit do
           ["", ":", " "].each do |pat|
             [-1, 0, 1, 2].each do |limit|
               str.rsplit(pat.dup.taint, limit).each do |x|
-                expect(x.tainted?).to eq(false)
+                expect(x).not_to be_tainted
               end
             end
           end
