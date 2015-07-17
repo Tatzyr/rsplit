@@ -23,8 +23,8 @@ describe RSplit do
       end
 
       context "Argument" do
-        it "throws an TypeError if the separator is Regexp" do
-          expect { "str".rsplit(/\w/) }.to raise_error TypeError
+        it "throws a TypeError if the separator is Regexp" do
+          expect { "str".rsplit(/\w/) }.to raise_error(TypeError)
         end
 
         it "splits on multibyte characters" do
