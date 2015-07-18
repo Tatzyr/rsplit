@@ -174,7 +174,7 @@ describe RSplit do
         end
       end
 
-      it "doesn't taints the resulting strings if the Regexp is tainted" do
+      it "doesn't taints the resulting strings if the pattern is tainted" do
         ["", "x:y:z:", "  x  y  "].each do |str|
           ["", ":", " "].each do |pat|
             [-1, 0, 1, 2].each do |limit|
