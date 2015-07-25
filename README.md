@@ -1,4 +1,4 @@
-# rsplit
+# String#rsplit
 
 [![Gem Version](https://badge.fury.io/rb/rsplit.svg)](http://badge.fury.io/rb/rsplit)
 [![Build Status](https://travis-ci.org/Tatzyr/rsplit.svg?branch=master)](https://travis-ci.org/Tatzyr/rsplit)
