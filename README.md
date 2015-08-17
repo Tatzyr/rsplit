@@ -35,15 +35,11 @@ Or install it yourself as:
 ```ruby
 require "rsplit"
 
-" now's  the time".rsplit        #=> ["now's", "the", "time"]
-" now's  the time".rsplit(" ")   #=> ["now's", "the", "time"]
+"Dalton Kuhic dalton.kuhic@example.com".rsplit(" ", 2)
+# => ["Dalton Kuhic", "dalton.kuhic@example.com"]
 
-"mellow yellow".rsplit("ello")   #=> ["m", "w y", "w"]
-"..1.2..3.4".rsplit(".")         #=> ["1", "2", "", "3", "4"]
-"..1.2..3.4".rsplit(".", 4)      #=> ["..1.2", "", "3", "4"]
-"..1.2..3.4".rsplit(".", -1)     #=> ["", "", "1", "2", "", "3", "4"]
-
-"".rsplit(".")                   #=> []
+"Sallie Hickle Jr. sallie@example.org".rsplit(" ", 2)
+# => ["Sallie Hickle Jr.", "sallie@example.org"]
 ```
 
 ## Development
