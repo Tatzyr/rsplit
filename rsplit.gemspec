@@ -6,7 +6,7 @@ require 'rsplit/version'
 Gem::Specification.new do |spec|
   spec.name          = "rsplit"
   spec.version       = RSplit::VERSION
-  spec.authors       = ["OTSUKA Tatsuya"]
+  spec.authors       = ["Tatsuya Otsuka"]
   spec.email         = ["tatzyr@gmail.com"]
 
   spec.summary       = %q{Divides string into substrings based on a delimiter (starting from right), returning an array of these substrings.}
