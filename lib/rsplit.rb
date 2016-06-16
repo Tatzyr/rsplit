@@ -1,3 +1,5 @@
+# -*- frozen_string_literal: true -*-
+
 require "rsplit/version"
 
 module RSplit

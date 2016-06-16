@@ -1,4 +1,5 @@
 # coding: utf-8
+# -*- frozen_string_literal: true -*-
 
 require 'spec_helper'
 
@@ -12,10 +13,11 @@ describe RSplit do
       context "Encoding" do
         it "throws an ArgumentError if the pattern is not a valid string" do
           str = 'проверка'
-          broken_str = 'проверка'
+          broken_str = 'проверка'.dup
           broken_str.force_encoding('binary')
           broken_str.chop!
           broken_str.force_encoding('utf-8')
+          broken_str.freeze
           expect { str.rsplit(broken_str) }.to raise_error(ArgumentError)
         end
 
