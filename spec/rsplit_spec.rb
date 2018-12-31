@@ -74,24 +74,26 @@ describe RSplit do
       end
 
       it "defaults to $; when string isn't given or nil" do
-        old_fs = $;
+        begin
+          old_fs = $;
 
-        [",", ":", "", "XY", nil].each do |fs|
-          $; = fs
+          [",", ":", "", "XY", nil].each do |fs|
+            $; = fs
 
-          ["x,y,z,,,", "1:2:", "aXYbXYcXY", ""].each do |str|
-            expected = str.rsplit(fs || " ")
+            ["x,y,z,,,", "1:2:", "aXYbXYcXY", ""].each do |str|
+              expected = str.rsplit(fs || " ")
 
-            expect(str.rsplit(nil)).to eq(expected)
-            expect(str.rsplit).to eq(expected)
+              expect(str.rsplit(nil)).to eq(expected)
+              expect(str.rsplit).to eq(expected)
 
-            expect(str.rsplit(nil, -1)).to eq(str.rsplit(fs || " ", -1))
-            expect(str.rsplit(nil, 0)).to eq(str.rsplit(fs || " ", 0))
-            expect(str.rsplit(nil, 2)).to eq(str.rsplit(fs || " ", 2))
+              expect(str.rsplit(nil, -1)).to eq(str.rsplit(fs || " ", -1))
+              expect(str.rsplit(nil, 0)).to eq(str.rsplit(fs || " ", 0))
+              expect(str.rsplit(nil, 2)).to eq(str.rsplit(fs || " ", 2))
+            end
           end
+        ensure
+          $; = old_fs
         end
-      ensure
-        $; = old_fs
       end
 
       it "ignores leading and continuous whitespace when string is a single space" do
