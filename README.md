@@ -2,13 +2,16 @@
 
 [![Gem Version](https://badge.fury.io/rb/rsplit.svg)](http://badge.fury.io/rb/rsplit)
 [![Build Status](https://travis-ci.org/tatzyr/rsplit.svg?branch=master)](https://travis-ci.org/tatzyr/rsplit)
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/testdouble/standard)
 
 Divides string into substrings based on a delimiter (starting from right),
 returning an array of these substrings.
 
 ```ruby
-"1.2.3".split(".", 2)     #=> ["1", "2.3"]
-"1.2.3".rsplit(".", 2)    #=> ["1.2", "3"]
+require "rsplit"
+
+"1.2.3".split(".", 2) #=> ["1", "2.3"]
+"1.2.3".rsplit(".", 2) #=> ["1.2", "3"]
 ```
 
 ## Installation
@@ -26,18 +29,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install rsplit
-
-## Usage
-
-```ruby
-require "rsplit"
-
-"Dalton Kuhic dalton.kuhic@example.com".rsplit(" ", 2)
-# => ["Dalton Kuhic", "dalton.kuhic@example.com"]
-
-"Sallie Hickle Jr. sallie@example.org".rsplit(" ", 2)
-# => ["Sallie Hickle Jr.", "sallie@example.org"]
-```
 
 ## Development
 

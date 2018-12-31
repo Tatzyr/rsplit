@@ -1,10 +1,9 @@
-# coding: utf-8
 # -*- frozen_string_literal: true -*-
 
-require 'spec_helper'
+require "spec_helper"
 
 describe RSplit do
-  it 'has a version number' do
+  it "has a version number" do
     expect(RSplit::VERSION).not_to be_nil
   end
 
@@ -12,11 +11,11 @@ describe RSplit do
     describe "#rsplit" do
       context "Encoding" do
         it "throws an ArgumentError if the pattern is not a valid string" do
-          str = 'проверка'
-          broken_str = 'проверка'.dup
-          broken_str.force_encoding('binary')
+          str = "проверка"
+          broken_str = +"проверка"
+          broken_str.force_encoding("binary")
           broken_str.chop!
-          broken_str.force_encoding('utf-8')
+          broken_str.force_encoding("utf-8")
           broken_str.freeze
           expect { str.rsplit(broken_str) }.to raise_error(ArgumentError)
         end
@@ -46,8 +45,8 @@ describe RSplit do
       end
 
       it "suppresses trailing empty fields when limit isn't given or 0" do
-        expect("1,2,,3,4,,".rsplit(',')).to eq(["1", "2", "", "3", "4", "", ""])
-        expect("1,2,,3,4,,".rsplit(',', 0)).to eq(["1", "2", "", "3", "4", "", ""])
+        expect("1,2,,3,4,,".rsplit(",")).to eq(["1", "2", "", "3", "4", "", ""])
+        expect("1,2,,3,4,,".rsplit(",", 0)).to eq(["1", "2", "", "3", "4", "", ""])
         expect("  a  b  c\nd  ".rsplit("  ")).to eq(["a", "b", "c\nd", ""])
         expect("hai".rsplit("hai")).to be_empty
         expect(",".rsplit(",")).to be_empty
@@ -66,63 +65,61 @@ describe RSplit do
       it "returns at most limit fields when limit > 1" do
         expect("hai".rsplit("hai", 2)).to eq(["", ""])
 
-        expect("1,2,,3,4,,".rsplit(',', 2)).to eq(["1,2,,3,4,", ""])
-        expect("1,2,,3,4,,".rsplit(',', 3)).to eq(["1,2,,3,4", "", ""])
-        expect("1,2,,3,4,,".rsplit(',', 4)).to eq(["1,2,,3", "4", "", ""])
-        expect("1,2,,3,4,,".rsplit(',', 5)).to eq(["1,2,", "3", "4", "", ""])
-        expect("1,2,,3,4,,".rsplit(',', 6)).to eq(["1,2", "", "3", "4", "", ""])
+        expect("1,2,,3,4,,".rsplit(",", 2)).to eq(["1,2,,3,4,", ""])
+        expect("1,2,,3,4,,".rsplit(",", 3)).to eq(["1,2,,3,4", "", ""])
+        expect("1,2,,3,4,,".rsplit(",", 4)).to eq(["1,2,,3", "4", "", ""])
+        expect("1,2,,3,4,,".rsplit(",", 5)).to eq(["1,2,", "3", "4", "", ""])
+        expect("1,2,,3,4,,".rsplit(",", 6)).to eq(["1,2", "", "3", "4", "", ""])
 
-        expect(",,1,2,,3,4".rsplit(',', 2)).to eq([",,1,2,,3", "4"])
-        expect(",,1,2,,3,4".rsplit(',', 3)).to eq([",,1,2," ,"3", "4"])
-        expect(",,1,2,,3,4".rsplit(',', 4)).to eq([",,1,2", "", "3", "4"])
-        expect(",,1,2,,3,4".rsplit(',', 5)).to eq([",,1", "2", "", "3", "4"])
-        expect(",,1,2,,3,4".rsplit(',', 6)).to eq([",", "1", "2", "", "3", "4"])
+        expect(",,1,2,,3,4".rsplit(",", 2)).to eq([",,1,2,,3", "4"])
+        expect(",,1,2,,3,4".rsplit(",", 3)).to eq([",,1,2,", "3", "4"])
+        expect(",,1,2,,3,4".rsplit(",", 4)).to eq([",,1,2", "", "3", "4"])
+        expect(",,1,2,,3,4".rsplit(",", 5)).to eq([",,1", "2", "", "3", "4"])
+        expect(",,1,2,,3,4".rsplit(",", 6)).to eq([",", "1", "2", "", "3", "4"])
 
-        expect("x".rsplit('x', 2)).to eq(["", ""])
-        expect("xx".rsplit('x', 2)).to eq(["x", ""])
-        expect("xx".rsplit('x', 3)).to eq(["", "", ""])
-        expect("xxx".rsplit('x', 2)).to eq(["xx", ""])
-        expect("xxx".rsplit('x', 3)).to eq(["x", "", ""])
-        expect("xxx".rsplit('x', 4)).to eq(["", "", "", ""])
+        expect("x".rsplit("x", 2)).to eq(["", ""])
+        expect("xx".rsplit("x", 2)).to eq(["x", ""])
+        expect("xx".rsplit("x", 3)).to eq(["", "", ""])
+        expect("xxx".rsplit("x", 2)).to eq(["xx", ""])
+        expect("xxx".rsplit("x", 3)).to eq(["x", "", ""])
+        expect("xxx".rsplit("x", 4)).to eq(["", "", "", ""])
       end
 
       it "doesn't suppress or limit fields when limit is negative" do
-        expect("1,2,,3,4,,".rsplit(',', -1)).to eq(["1", "2", "", "3", "4", "", ""])
-        expect("1,2,,3,4,,".rsplit(',', -5)).to eq(["1", "2", "", "3", "4", "", ""])
+        expect("1,2,,3,4,,".rsplit(",", -1)).to eq(["1", "2", "", "3", "4", "", ""])
+        expect("1,2,,3,4,,".rsplit(",", -5)).to eq(["1", "2", "", "3", "4", "", ""])
         expect("  a  b  c\nd  ".rsplit("  ", -1)).to eq(["", "a", "b", "c\nd", ""])
         expect(",".rsplit(",", -1)).to eq(["", ""])
       end
 
       it "defaults to $; when string isn't given or nil" do
-        begin
-          old_fs = $;
+        old_fs = $;
 
-          [",", ":", "", "XY", nil].each do |fs|
-            $; = fs
+        [",", ":", "", "XY", nil].each do |fs|
+          $; = fs
 
-            ["x,y,z,,,", "1:2:", "aXYbXYcXY", ""].each do |str|
-              expected = str.rsplit(fs || " ")
+          ["x,y,z,,,", "1:2:", "aXYbXYcXY", ""].each do |str|
+            expected = str.rsplit(fs || " ")
 
-              expect(str.rsplit(nil)).to eq(expected)
-              expect(str.rsplit).to eq(expected)
+            expect(str.rsplit(nil)).to eq(expected)
+            expect(str.rsplit).to eq(expected)
 
-              expect(str.rsplit(nil, -1)).to eq(str.rsplit(fs || " ", -1))
-              expect(str.rsplit(nil, 0)).to eq(str.rsplit(fs || " ", 0))
-              expect(str.rsplit(nil, 2)).to eq(str.rsplit(fs || " ", 2))
-            end
+            expect(str.rsplit(nil, -1)).to eq(str.rsplit(fs || " ", -1))
+            expect(str.rsplit(nil, 0)).to eq(str.rsplit(fs || " ", 0))
+            expect(str.rsplit(nil, 2)).to eq(str.rsplit(fs || " ", 2))
           end
-        ensure
-          $; = old_fs
         end
+      ensure
+        $; = old_fs
       end
 
       it "ignores leading and continuous whitespace when string is a single space" do
-        expect("  now's  the time ".rsplit(' ')).to eq(["now's", "the", "time"])
-        expect("  now's  the time ".rsplit(' ', -1)).to eq(["", "now's", "the", "time"])
-        expect("  now's  the time ".rsplit(' ', 3)).to eq(["  now's", "the", "time"])
+        expect("  now's  the time ".rsplit(" ")).to eq(["now's", "the", "time"])
+        expect("  now's  the time ".rsplit(" ", -1)).to eq(["", "now's", "the", "time"])
+        expect("  now's  the time ".rsplit(" ", 3)).to eq(["  now's", "the", "time"])
 
-        expect("\t\n a\t\tb \n\r\r\nc\v\vd\v ".rsplit(' ')).to eq(["a", "b", "c", "d"])
-        expect("a\x00a b".rsplit(' ')).to eq(["a\x00a", "b"])
+        expect("\t\n a\t\tb \n\r\r\nc\v\vd\v ".rsplit(" ")).to eq(["a", "b", "c", "d"])
+        expect("a\x00a b".rsplit(" ")).to eq(["a\x00a", "b"])
       end
 
       it "splits between characters when its argument is an empty string" do

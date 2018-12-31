@@ -8,7 +8,7 @@ module RSplit
     sep = $; if sep.nil?
     case sep
     when NilClass
-      # do nothing
+      nil # do nothing
     when String
       valid_encoding?(sep)
       sep = sep.reverse
@@ -27,7 +27,6 @@ module RSplit
     raise ArgumentError, "invalid byte sequence in #{string.encoding.name}" unless string.valid_encoding?
   end
 end
-
 
 class String
   # :call-seq:
