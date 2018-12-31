@@ -9,35 +9,17 @@ describe RSplit do
 
   describe String do
     describe "#rsplit" do
-      context "Encoding" do
-        it "throws an ArgumentError if the pattern is not a valid string" do
-          str = "проверка"
-          broken_str = +"проверка"
-          broken_str.force_encoding("binary")
-          broken_str.chop!
-          broken_str.force_encoding("utf-8")
-          broken_str.freeze
-          expect { str.rsplit(broken_str) }.to raise_error(ArgumentError)
-        end
-
-        it "splits on multibyte characters" do
-          expect("ありがりがとう".rsplit("が")).to eq(["あり", "り", "とう"])
-        end
+      it "throws a TypeError if the separator is Regexp" do
+        expect { "str".rsplit(/\w/) }.to raise_error(TypeError)
       end
 
-      context "Argument" do
-        it "throws a TypeError if the separator is Regexp" do
-          expect { "str".rsplit(/\w/) }.to raise_error(TypeError)
-        end
+      it "splits on multibyte characters" do
+        expect("ありがりがとう".rsplit("が")).to eq(["あり", "り", "とう"])
+      end
 
-        it "splits on multibyte characters" do
-          expect("ありがりがとう".rsplit("が")).to eq(["あり", "り", "とう"])
-        end
-
-        it "throws a TypeError if limit can't be converted to an integer" do
-          expect { "1.2.3.4".rsplit(".", "three") }.to raise_error(TypeError)
-          expect { "1.2.3.4".rsplit(".", nil) }.to raise_error(TypeError)
-        end
+      it "throws a TypeError if limit can't be converted to an integer" do
+        expect { "1.2.3.4".rsplit(".", "three") }.to raise_error(TypeError)
+        expect { "1.2.3.4".rsplit(".", nil) }.to raise_error(TypeError)
       end
 
       it "returns an array of substrings based on splitting on the given string" do
@@ -61,7 +43,6 @@ describe RSplit do
         expect("hi!".rsplit("", 1)).to eq(["hi!"])
       end
 
-      # ---
       it "returns at most limit fields when limit > 1" do
         expect("hai".rsplit("hai", 2)).to eq(["", ""])
 
@@ -196,6 +177,18 @@ describe RSplit do
       it "splits a string on each character for a multibyte encoding and empty split" do
         expect("That's why eﬃciency could not be helped".rsplit("").size).to eq(39)
         expect("俺の想いよルイズへ届け！！ハルケギニアのルイズへ届け！".rsplit("").size).to eq(27)
+      end
+
+      context "avoid interpreter's bug" do
+        it "throws an ArgumentError if the pattern is not a valid string" do
+          str = "проверка"
+          broken_str = +"проверка"
+          broken_str.force_encoding("binary")
+          broken_str.chop!
+          broken_str.force_encoding("utf-8")
+          broken_str.freeze
+          expect { str.rsplit(broken_str) }.to raise_error(ArgumentError)
+        end
       end
     end
   end
