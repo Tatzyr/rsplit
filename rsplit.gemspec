@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["tatzyr@gmail.com"]
 
   spec.summary       = %q{Divides string into substrings based on a delimiter (starting from right), returning an array of these substrings.}
-  spec.homepage      = "https://github.com/Tatzyr/rsplit"
+  spec.homepage      = "https://github.com/tatzyr/rsplit"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"

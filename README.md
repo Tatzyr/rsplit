@@ -1,10 +1,10 @@
 # String#rsplit
 
 [![Gem Version](https://badge.fury.io/rb/rsplit.svg)](http://badge.fury.io/rb/rsplit)
-[![Build Status](https://travis-ci.org/Tatzyr/rsplit.svg?branch=master)](https://travis-ci.org/Tatzyr/rsplit)
-[![Code Climate](https://codeclimate.com/github/Tatzyr/rsplit/badges/gpa.svg)](https://codeclimate.com/github/Tatzyr/rsplit)
-[![Test Coverage](https://codeclimate.com/github/Tatzyr/rsplit/badges/coverage.svg)](https://codeclimate.com/github/Tatzyr/rsplit/coverage)
-[![Dependency Status](https://gemnasium.com/Tatzyr/rsplit.svg)](https://gemnasium.com/Tatzyr/rsplit)
+[![Build Status](https://travis-ci.org/tatzyr/rsplit.svg?branch=master)](https://travis-ci.org/tatzyr/rsplit)
+[![Code Climate](https://codeclimate.com/github/tatzyr/rsplit/badges/gpa.svg)](https://codeclimate.com/github/tatzyr/rsplit)
+[![Test Coverage](https://codeclimate.com/github/tatzyr/rsplit/badges/coverage.svg)](https://codeclimate.com/github/tatzyr/rsplit/coverage)
+[![Dependency Status](https://gemnasium.com/tatzyr/rsplit.svg)](https://gemnasium.com/tatzyr/rsplit)
 
 Divides string into substrings based on a delimiter (starting from right),
 returning an array of these substrings.
@@ -50,7 +50,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Tatzyr/rsplit.
+Bug reports and pull requests are welcome on GitHub at https://github.com/tatzyr/rsplit.
 
 ## Licence
 
@@ -58,4 +58,4 @@ See [LICENSE](LICENSE).
 
 ## Author
 
-[Tatsuya Otsuka](https://github.com/Tatzyr)
+[Tatsuya Otsuka](https://github.com/tatzyr)
