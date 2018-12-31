@@ -2,9 +2,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/rsplit.svg)](http://badge.fury.io/rb/rsplit)
 [![Build Status](https://travis-ci.org/tatzyr/rsplit.svg?branch=master)](https://travis-ci.org/tatzyr/rsplit)
-[![Code Climate](https://codeclimate.com/github/tatzyr/rsplit/badges/gpa.svg)](https://codeclimate.com/github/tatzyr/rsplit)
-[![Test Coverage](https://codeclimate.com/github/tatzyr/rsplit/badges/coverage.svg)](https://codeclimate.com/github/tatzyr/rsplit/coverage)
-[![Dependency Status](https://gemnasium.com/tatzyr/rsplit.svg)](https://gemnasium.com/tatzyr/rsplit)
 
 Divides string into substrings based on a delimiter (starting from right),
 returning an array of these substrings.
