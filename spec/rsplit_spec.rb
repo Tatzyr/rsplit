@@ -190,6 +190,17 @@ describe RSplit do
           expect { str.rsplit(broken_str) }.to raise_error(ArgumentError)
         end
       end
+
+      context "Ruby 2.6+" do
+        if Gem::Version.create(RUBY_VERSION) >= Gem::Version.create("2.6")
+          it "yields each split substrings if a block is given" do
+            a = []
+            returned_object = "foo/bar/baz/foo/bar/baz".rsplit("/", 3) {|s| a << s.capitalize }
+            expect(returned_object).to eq("foo/bar/baz/foo/bar/baz")
+            expect(a).to eq(["Foo/bar/baz/foo", "Bar", "Baz"])
+          end
+        end
+      end
     end
   end
 end

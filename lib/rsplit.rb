@@ -16,7 +16,14 @@ module RSplit
       raise TypeError, "wrong argument type #{sep.class} (expected String)"
     end
 
-    str.reverse.split(sep, limit).map(&:reverse).reverse
+    if block_given?
+      str.reverse.split(sep, limit).reverse_each do |elem|
+        yield elem.reverse
+      end
+      str
+    else
+      str.reverse.split(sep, limit).map(&:reverse).reverse
+    end
   end
 
   module_function :rsplit
@@ -30,11 +37,13 @@ end
 
 class String
   # :call-seq:
-  #   rsplit(sep = $;, limit = 0)
+  #   rsplit(sep = $;, limit = 0) -> array
+  #   rsplit(sep = $;, limit = 0) {|elem| block } -> str
+
   #
   # Divides string into substrings based on a delimiter (starting from right), returning an array of these substrings.
   #
-  def rsplit(*args)
-    RSplit.rsplit(self, *args)
+  def rsplit(*args, &proc)
+    RSplit.rsplit(self, *args, &proc)
   end
 end
