@@ -142,34 +142,6 @@ describe RSplit do
         end
       end
 
-      it "taints the resulting strings if self is tainted" do
-        ["", "x.y.z.", "  x  y  "].each do |str|
-          ["", ".", " "].each do |pat|
-            [-1, 0, 1, 2].each do |limit|
-              str.dup.taint.rsplit(pat).each do |x|
-                expect(x).to be_tainted
-              end
-
-              str.rsplit(pat.dup.taint).each do |x|
-                expect(x).not_to be_tainted
-              end
-            end
-          end
-        end
-      end
-
-      it "doesn't taints the resulting strings if the pattern is tainted" do
-        ["", "x:y:z:", "  x  y  "].each do |str|
-          ["", ":", " "].each do |pat|
-            [-1, 0, 1, 2].each do |limit|
-              str.rsplit(pat.dup.taint, limit).each do |x|
-                expect(x).not_to be_tainted
-              end
-            end
-          end
-        end
-      end
-
       it "retains the encoding of the source string" do
         ary = "а б в".rsplit
         encodings = ary.map { |s| s.encoding }
@@ -197,7 +169,7 @@ describe RSplit do
         if Gem::Version.create(RUBY_VERSION) >= Gem::Version.create("2.6")
           it "yields each split substrings if a block is given" do
             a = []
-            returned_object = "foo/bar/baz/foo/bar/baz".rsplit("/", 3) {|s| a << s.capitalize }
+            returned_object = "foo/bar/baz/foo/bar/baz".rsplit("/", 3) { |s| a << s.capitalize }
             expect(returned_object).to eq("foo/bar/baz/foo/bar/baz")
             expect(a).to eq(["Foo/bar/baz/foo", "Bar", "Baz"])
           end
